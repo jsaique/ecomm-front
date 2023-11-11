@@ -2,9 +2,13 @@ import styled from "styled-components";
 import Button from "@/components/Button";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
+import { useContext } from "react";
+import { CartContext } from "@/components/CartContext";
 
 export default function ProductBox({ _id, title, description, price, images }) {
   const url = "/products/" + _id;
+  const { addProduct } = useContext(CartContext);
+
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
@@ -16,7 +20,7 @@ export default function ProductBox({ _id, title, description, price, images }) {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <Button primary={1} outline={1}>
+          <Button onClick={() => addProduct(_id)} primary={1} outline={1}>
             <FaShoppingCart />
             Add
           </Button>

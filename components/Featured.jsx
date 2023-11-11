@@ -3,8 +3,15 @@ import Center from "@/components/Center";
 import Button from "@/components/Button";
 import { FaShoppingCart } from "react-icons/fa";
 import LinkBtn from "@/components/LinkBtn";
+import { useContext } from "react";
+import { CartContext } from "@/components/CartContext";
 
 export default function Featured({ featuredProduct }) {
+  const { addProduct } = useContext(CartContext);
+  const addFeaturedToCart = function () {
+    addProduct(featuredProduct._id);
+  };
+
   return (
     <Background>
       <Center>
@@ -23,7 +30,7 @@ export default function Featured({ featuredProduct }) {
                 >
                   Read more
                 </LinkBtn>
-                <Button white={1}>
+                <Button onClick={addFeaturedToCart} white={1}>
                   <FaShoppingCart />
                   Add to cart
                 </Button>
