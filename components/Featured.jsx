@@ -23,7 +23,7 @@ export default function Featured({ featuredProduct }) {
                 >
                   Read more
                 </LinkBtn>
-                <Button primary={1}>
+                <Button white={1}>
                   <FaShoppingCart />
                   Add to cart
                 </Button>
