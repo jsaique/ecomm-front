@@ -28,39 +28,37 @@ export default async function handler(req, res) {
         quantity,
         price_data: {
           currency: "USD",
-          product_data: {
-            name: { name: productInfo.title },
-            unit_amount: quantity * productInfo.price,
-          },
+          product_data: { name: productInfo.title },
+          unit_amount: quantity * productInfo.price * 100,
         },
       });
     }
   }
 
-  res.json({ line_items });
+  // res.json({ line_items });
 
-  // const orderData = await Order.create({
-  //   line_items,
-  //   name,
-  //   email,
-  //   address,
-  //   city,
-  //   state,
-  //   zip,
-  //   country,
-  //   paid: false,
-  // });
+  const orderDoc = await Order.create({
+    line_items,
+    name,
+    email,
+    address,
+    city,
+    zip,
+    state,
+    country,
+    paid: false,
+  });
 
-  // const session = await stripe.checkout.sessions.create({
-  //   line_items,
-  //   mode: "payment",
-  //   customer_email: email,
-  //   success_url: process.env.REDIRECT_URL + "/cart?success=1",
-  //   cancel_url: process.env.REDIRECT_URL + "/cart?canceled=1",
-  //   metadata: { orderId: orderData._id.toString(), test: "ok" },
-  // });
+  const session = await stripe.checkout.sessions.create({
+    line_items,
+    mode: "payment",
+    customer_email: email,
+    success_url: process.env.REDIRECT_URL + "/cart?success=1",
+    cancel_url: process.env.REDIRECT_URL + "/cart?canceled=1",
+    metadata: { orderId: orderDoc._id.toString() },
+  });
 
-  // res.json({
-  //   url: session.url,
-  // });
+  res.json({
+    url: session.url,
+  });
 }
