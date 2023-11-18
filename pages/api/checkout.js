@@ -9,10 +9,10 @@ export default async function handler(req, res) {
     res.json("Invalid method passed try POST");
     return;
   }
-  const { name, email, address, city, state, zip, country, products } =
+  const { name, email, address, city, state, zip, country, cartProducts } =
     req.body;
   await mongooseConnect();
-  const productsIds = products.split(",");
+  const productsIds = cartProducts;
   // Displaying same id's
   const uniqueIds = [...new Set(productsIds)];
   const productInfos = await Product.find({ _id: uniqueIds });
@@ -35,9 +35,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // res.json({ line_items });
-
-  const orderDoc = await Order.create({
+  const orderData = await Order.create({
     line_items,
     name,
     email,
@@ -55,7 +53,7 @@ export default async function handler(req, res) {
     customer_email: email,
     success_url: process.env.REDIRECT_URL + "/cart?success=1",
     cancel_url: process.env.REDIRECT_URL + "/cart?canceled=1",
-    metadata: { orderId: orderDoc._id.toString() },
+    metadata: { orderId: orderData._id.toString(), test: "ok" },
   });
 
   res.json({
