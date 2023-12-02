@@ -8,6 +8,7 @@ import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import css from "styled-jsx/css";
+import Title from "@/components/Title";
 
 export default function CartPage() {
   const { cartProducts, addProduct, removeProduct, clearCart } =
@@ -228,12 +229,6 @@ const Box = styled.div`
     css`
       max-height: 350px;
     `}
-`;
-
-const Title = styled.h2`
-  font-size: 2rem;
-  margin: 30px 0 20px;
-  font-weight: 400;
 `;
 
 const ProductInfoCell = styled.td`

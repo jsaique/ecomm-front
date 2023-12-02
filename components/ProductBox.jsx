@@ -6,14 +6,14 @@ import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
 
 export default function ProductBox({ _id, title, description, price, images }) {
-  const url = "/products/" + _id;
+  const url = "/product/" + _id;
   const { addProduct } = useContext(CartContext);
 
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
         <div>
-          <img src={images[0]} alt="" />
+          <img src={images?.[0]} alt="" />
         </div>
       </WhiteBox>
       <ProductInfo>
