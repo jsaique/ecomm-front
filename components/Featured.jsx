@@ -24,7 +24,7 @@ export default function Featured({ featuredProduct }) {
               </StyledDescription>
               <ButtonWrapper>
                 <LinkBtn
-                  href={"/products/" + featuredProduct._id}
+                  href={"/product/" + featuredProduct._id}
                   outline={1}
                   white={1}
                 >
@@ -58,7 +58,10 @@ const StyledTitle = styled.h1`
   color: #f1f5f9;
   margin: 0;
   font-weight: normal;
-  font-size: 3rem;
+  font-size: 1.5rem;
+  @media screen and (min-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const StyledDescription = styled.p`
@@ -68,10 +71,25 @@ const StyledDescription = styled.p`
 
 const ColumnWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr;
   gap: 40px;
   img {
     max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 0 auto;
+  }
+  div:nth-child(1) {
+    order: 2;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.1fr 0.9fr;
+    div:nth-child(1) {
+      order: 0;
+    }
+    img {
+      max-width: 100%;
+    }
   }
 `;
 

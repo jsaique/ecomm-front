@@ -20,7 +20,12 @@ export default function ProductBox({ _id, title, description, price, images }) {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <Button onClick={() => addProduct(_id)} primary={1} outline={1}>
+          <Button
+            block={1}
+            onClick={() => addProduct(_id)}
+            primary={1}
+            outline={1}
+          >
             <FaShoppingCart />
             Add
           </Button>
@@ -60,13 +65,23 @@ const ProductInfo = styled.div`
 `;
 
 const PriceRow = styled.div`
-  display: flex;
+  display: block;
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
   align-items: center;
   justify-content: space-between;
   margin-top: 2px;
+  gap: 5px;
 `;
 
 const Price = styled.div`
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: right;
+  @media screen and (min-width: 768px) {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+  }
 `;

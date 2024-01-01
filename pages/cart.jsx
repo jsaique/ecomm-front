@@ -215,7 +215,10 @@ export default function CartPage() {
 
 const ColumWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
   gap: 40px;
   margin-top: 40px;
 `;
@@ -239,20 +242,31 @@ const ProductImageBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 70px;
   height: 100px;
-  padding: 10px;
+  padding: 2px;
   border: 1px solid #cbd5e1;
   border-radius: 10px;
   img {
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 10px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
     max-width: 80px;
     max-height: 80px;
-    border-radius: 10px;
   }
 `;
 
 const QuantityCell = styled.span`
-  padding: 0 5px;
+  padding: 0 15px;
+  @media screen and (min-width: 768px) {
+    display: inline-block;
+    padding: 0 10px;
+  }
 `;
 
 const CityContainer = styled.div`
