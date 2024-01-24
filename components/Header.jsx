@@ -14,7 +14,7 @@ export default function Header() {
       <Center>
         <Wrapper>
           <Logo href={"/"}>eShopping</Logo>
-          <StyledNav mobileNavActive={mobileNavActive}>
+          <StyledNav mobilenavactive={mobileNavActive.toString()}>
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All products</NavLink>
             <NavLink href={"/categories"}>Categories</NavLink>
@@ -70,7 +70,8 @@ const NavButton = styled.button`
 `;
 
 const StyledNav = styled.nav`
-  ${(props) => (props.mobileNavActive ? `display: block;` : `display: none;`)}
+  ${(props) =>
+    props.mobilenavactive === "true" ? `display: block;` : `display: none;`}
 
   gap: 15px;
   position: fixed;

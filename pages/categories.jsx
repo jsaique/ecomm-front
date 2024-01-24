@@ -1,8 +1,11 @@
 import Center from "@/components/Center";
 import Header from "@/components/Header";
+import ProductBox from "@/components/ProductBox";
 import Title from "@/components/Title";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
+import Link from "next/link";
+import styled from "styled-components";
 
 export default function CategoriesPage({ mainCategories, categoriesProducts }) {
   return (
@@ -10,14 +13,22 @@ export default function CategoriesPage({ mainCategories, categoriesProducts }) {
       <Header />
       <Center>
         {mainCategories.map((cat) => (
-          <div>
-            <h2>{cat.name}</h2>
-            <div>
+          <CategoryWrapper key={cat._id}>
+            <CategoryTitle>
+              <Title>{cat.name}</Title>
+              <div>
+                <Link href={"/category/" + cat._id}>Show all</Link>
+              </div>
+            </CategoryTitle>
+            <CategoryGrid>
               {categoriesProducts[cat._id].map((product) => (
-                <div>{product.title}</div>
+                <ProductBox key={product._id} {...product} />
               ))}
-            </div>
-          </div>
+              <ShowAllTile href={"/category/" + cat._id}>
+                Show all &rarr;
+              </ShowAllTile>
+            </CategoryGrid>
+          </CategoryWrapper>
         ))}
       </Center>
     </>
@@ -34,7 +45,6 @@ export async function getServerSideProps() {
       .filter((c) => c?.parent?.toString() === mainCatId)
       .map((c) => c._id.toString());
     const categoriesIds = [mainCatId, ...childCatIds];
-    console.log({ categoriesIds });
     const products = await Product.find({ category: categoriesIds }, null, {
       limit: 3,
       sort: { _id: -1 },
@@ -48,3 +58,40 @@ export async function getServerSideProps() {
     },
   };
 }
+
+const CategoryGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+`;
+
+const CategoryTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  h2 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  a {
+    color: #0f172a;
+  }
+`;
+
+const CategoryWrapper = styled.div`
+  margin-bottom: 40px;
+`;
+
+const ShowAllTile = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #9ca3af;
+  height: 160px;
+  border-radius: 10px;
+  color: #0f172a;
+  text-decoration: none;
+`;
