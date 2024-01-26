@@ -16,6 +16,7 @@ export const ButtonStyle = css`
   text-decoration: none;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
+  font-size: 16px;
   ${(props) =>
     props.block &&
     css`
@@ -35,7 +36,7 @@ export const ButtonStyle = css`
     css`
       background-color: transparent;
       color: #f1f5f9;
-      border: 2px solid #f1f5f9;
+      border: 1px solid #f1f5f9;
     `}
   ${(props) =>
     props.black &&
@@ -50,7 +51,7 @@ export const ButtonStyle = css`
     css`
       background-color: transparent;
       color: #0f172a;
-      border: 2px solid #0f172a;
+      border: 1px solid #0f172a;
     `}
   ${(props) =>
     props.primary &&
@@ -58,7 +59,7 @@ export const ButtonStyle = css`
     css`
       background-color: ${primary};
       color: #f1f5f9;
-      border: 2px solid ${primary};
+      border: 1px solid ${primary};
     `}
   ${(props) =>
     props.primary &&
@@ -66,7 +67,7 @@ export const ButtonStyle = css`
     css`
       background-color: transparent;
       color: ${primary};
-      border: 2px solid ${primary};
+      border: 1px solid ${primary};
     `}
   ${(props) =>
     props.size === "l" &&

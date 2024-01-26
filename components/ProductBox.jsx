@@ -1,13 +1,10 @@
 import styled from "styled-components";
-import Button from "@/components/Button";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import { useContext } from "react";
-import { CartContext } from "@/components/CartContext";
+import FlyingButton from "./FlyingButton";
 
 export default function ProductBox({ _id, title, description, price, images }) {
   const url = "/product/" + _id;
-  const { addProduct } = useContext(CartContext);
 
   return (
     <ProductWrapper>
@@ -20,15 +17,10 @@ export default function ProductBox({ _id, title, description, price, images }) {
         <Title href={url}>{title}</Title>
         <PriceRow>
           <Price>${price}</Price>
-          <Button
-            block={1}
-            onClick={() => addProduct(_id)}
-            primary={1}
-            outline={1}
-          >
+          <FlyingButton _id={_id} src={images?.[0]}>
             <FaShoppingCart />
             Add
-          </Button>
+          </FlyingButton>
         </PriceRow>
       </ProductInfo>
     </ProductWrapper>

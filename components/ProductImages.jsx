@@ -13,7 +13,7 @@ export default function ProductImages({ images }) {
         {images.map((image) => (
           <SmallImage
             key={image}
-            active={image === activeImage}
+            active={image === activeImage ? "true" : "false"} // convert the prop to string
             onClick={() => setActiveImage(image)}
           >
             <Image src={image} alt="" />

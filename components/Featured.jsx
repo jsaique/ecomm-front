@@ -5,12 +5,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import LinkBtn from "@/components/LinkBtn";
 import { useContext } from "react";
 import { CartContext } from "@/components/CartContext";
+import FlyingButton from "./FlyingButton";
 
 export default function Featured({ featuredProduct }) {
   const { addProduct } = useContext(CartContext);
-  const addFeaturedToCart = function () {
-    addProduct(featuredProduct._id);
-  };
+  // const addFeaturedToCart = function () {
+  //   addProduct(featuredProduct._id);
+  // };
 
   return (
     <Background>
@@ -30,10 +31,18 @@ export default function Featured({ featuredProduct }) {
                 >
                   Read more
                 </LinkBtn>
-                <Button onClick={addFeaturedToCart} white={1}>
+                <FlyingButton
+                  white
+                  _id={featuredProduct._id}
+                  src={featuredProduct.images?.[0]}
+                >
                   <FaShoppingCart />
                   Add to cart
-                </Button>
+                </FlyingButton>
+                {/* <Button onClick={addFeaturedToCart} white={1}>
+                  <FaShoppingCart />
+                  Add to cart
+                </Button> */}
               </ButtonWrapper>
             </div>
           </StyledColumn>

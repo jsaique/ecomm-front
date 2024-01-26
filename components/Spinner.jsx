@@ -11,13 +11,11 @@ export default function Spinner({ fullWidth }) {
 
 const Wrapper = styled.div`
   ${(props) =>
-    props.fullwidth === "true"
-      ? `
+    props.fullwidth === "true" &&
+    `
       display: flex;
       justify-content: center;
       align-items: center;
       height: 70vh;
-       `
-      : `
-      `}
+       `}
 `;

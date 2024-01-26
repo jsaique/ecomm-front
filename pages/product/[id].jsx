@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import { CartContext } from "@/components/CartContext";
 import { useContext } from "react";
+import FlyingButton from "@/components/FlyingButton";
 
 export default function ProductPage({ product }) {
   const { addProduct } = useContext(CartContext);
@@ -30,10 +31,14 @@ export default function ProductPage({ product }) {
                 <Price>${product.price} </Price>
               </div>
               <div>
-                <Button primary={1} onClick={() => addProduct(product._id)}>
+                {/* <Button
+                  primary={1}
+                  onClick={() => addProduct(product._id)}
+                ></Button> */}
+                <FlyingButton main _id={product._id} src={product.images?.[0]}>
                   <FaShoppingCart />
                   Add to cart
-                </Button>
+                </FlyingButton>
               </div>
             </PriceRow>
           </div>
