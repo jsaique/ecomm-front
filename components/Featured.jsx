@@ -1,56 +1,50 @@
 import styled from "styled-components";
 import Center from "@/components/Center";
-import Button from "@/components/Button";
 import { FaShoppingCart } from "react-icons/fa";
 import LinkBtn from "@/components/LinkBtn";
-import { useContext } from "react";
-import { CartContext } from "@/components/CartContext";
 import FlyingButton from "./FlyingButton";
+import { RevealWrapper } from "next-reveal";
 
 export default function Featured({ featuredProduct }) {
-  const { addProduct } = useContext(CartContext);
-  // const addFeaturedToCart = function () {
-  //   addProduct(featuredProduct._id);
-  // };
-
   return (
     <Background>
       <Center>
         <ColumnWrapper>
           <StyledColumn>
             <div>
-              <StyledTitle>{featuredProduct.title}</StyledTitle>
-              <StyledDescription>
-                {featuredProduct.description}
-              </StyledDescription>
-              <ButtonWrapper>
-                <LinkBtn
-                  href={"/product/" + featuredProduct._id}
-                  outline={1}
-                  white={1}
-                >
-                  Read more
-                </LinkBtn>
-                <FlyingButton
-                  white
-                  _id={featuredProduct._id}
-                  src={featuredProduct.images?.[0]}
-                >
-                  <FaShoppingCart />
-                  Add to cart
-                </FlyingButton>
-                {/* <Button onClick={addFeaturedToCart} white={1}>
-                  <FaShoppingCart />
-                  Add to cart
-                </Button> */}
-              </ButtonWrapper>
+              <RevealWrapper origin={"bottom"} delay={0}>
+                <StyledTitle>{featuredProduct.title}</StyledTitle>
+                <StyledDescription>
+                  {featuredProduct.description}
+                </StyledDescription>
+                <ButtonWrapper>
+                  <LinkBtn
+                    href={"/product/" + featuredProduct._id}
+                    outline={1}
+                    white={1}
+                  >
+                    Read more
+                  </LinkBtn>
+                  <FlyingButton
+                    white={1}
+                    _id={featuredProduct._id}
+                    src={featuredProduct.images?.[0]}
+                  >
+                    <FaShoppingCart />
+                    Add to cart
+                  </FlyingButton>
+                </ButtonWrapper>
+              </RevealWrapper>
             </div>
           </StyledColumn>
           <StyledColumn>
-            <img
-              src="https://aries-next-ecomm.s3.amazonaws.com/1698775544454.jpg"
-              alt=""
-            />
+            <RevealWrapper delay={0}>
+              <img
+                className={"main"}
+                src="https://aries-next-ecomm.s3.amazonaws.com/1698775544454.jpg"
+                alt=""
+              />
+            </RevealWrapper>
           </StyledColumn>
         </ColumnWrapper>
       </Center>
@@ -82,7 +76,7 @@ const ColumnWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  img {
+  img.main {
     max-width: 100%;
     max-height: 200px;
     display: block;

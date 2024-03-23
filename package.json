@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^2.2.1",
     "axios": "^1.6.1",
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.1",
+    "lodash": "^4.17.21",
     "micro": "^10.0.1",
     "mongoose": "^8.0.0",
     "next": "14.0.1",
+    "next-auth": "^4.24.5",
+    "next-reveal": "^1.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-flying-item": "^1.1.3",

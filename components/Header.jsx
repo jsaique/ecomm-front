@@ -4,6 +4,8 @@ import Center from "@/components/Center";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { BsSearch } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 export default function Header() {
   const { cartProducts } = useContext(CartContext);
@@ -18,12 +20,19 @@ export default function Header() {
             <NavLink href={"/"}>Home</NavLink>
             <NavLink href={"/products"}>All products</NavLink>
             <NavLink href={"/categories"}>Categories</NavLink>
-            <NavLink href={"/accounts"}>Account</NavLink>
+            <NavLink href={"/account"}>Account</NavLink>
             <NavLink href={"/cart"}>Cart ({cartProducts.length})</NavLink>
           </StyledNav>
-          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-            <GiHamburgerMenu />
-          </NavButton>
+          <SideIcons>
+            <IconContext.Provider value={{ size: "1em" }}>
+              <Link href={"/search"}>
+                <BsSearch />
+              </Link>
+              <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+                <GiHamburgerMenu />
+              </NavButton>
+            </IconContext.Provider>
+          </SideIcons>
         </Wrapper>
       </Center>
     </StyledHeader>
@@ -32,6 +41,9 @@ export default function Header() {
 
 const StyledHeader = styled.header`
   background-color: #0f172a; // slate 900
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `;
 
 const Logo = styled(Link)`
@@ -85,5 +97,14 @@ const StyledNav = styled.nav`
     display: flex;
     position: static;
     padding: 0;
+  }
+`;
+
+const SideIcons = styled.div`
+  display: flex;
+  a {
+    color: #f1f5f9;
+    display: inline-block;
+    max-width: 20px;
   }
 `;

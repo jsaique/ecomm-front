@@ -1,13 +1,19 @@
 import { CartContextProvider } from "@/components/CartContext";
 import { createGlobalStyle } from "styled-components";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyles />
-      <CartContextProvider>
-        <Component {...pageProps} />
-      </CartContextProvider>
+      <SessionProvider session={session}>
+        <CartContextProvider>
+          <Component {...pageProps} />
+        </CartContextProvider>
+      </SessionProvider>
     </>
   );
 }
@@ -19,5 +25,10 @@ const GlobalStyles = createGlobalStyle`
   padding: 0;
   margin: 0;
   font-family: 'Poppins', sans-serif;
+ }
+ hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #cbd5e1;
  }
 `;

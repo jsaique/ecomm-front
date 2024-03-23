@@ -128,15 +128,57 @@ export async function getServerSideProps(context) {
   };
 }
 
+// const CategoryHeader = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// `;
+
+// const FilterWrapper = styled.div`
+//   display: flex;
+//   gap: 15px;
+// `;
+
+// const Filter = styled.div`
+//   background-color: #a4bcda;
+//   padding: 5px 10px;
+//   border-radius: 5px;
+//   display: flex;
+//   gap: 5px;
+//   color: #444;
+//   select {
+//     background-color: transparent;
+//     border: none;
+//     font-size: inherit;
+//     color: #444;
+//   }
+// `;
+
+// const ApologyWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   height: 70vh;
+// `;
+
 const CategoryHeader = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 const FilterWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 15px;
+  @media (min-width: 768px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Filter = styled.div`
@@ -144,6 +186,7 @@ const Filter = styled.div`
   padding: 5px 10px;
   border-radius: 5px;
   display: flex;
+  align-items: center;
   gap: 5px;
   color: #444;
   select {
@@ -151,6 +194,9 @@ const Filter = styled.div`
     border: none;
     font-size: inherit;
     color: #444;
+  }
+  @media (min-width: 768px) {
+    flex: 1;
   }
 `;
 

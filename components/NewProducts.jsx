@@ -2,11 +2,11 @@ import styled from "styled-components";
 import Center from "@/components/Center";
 import ProductsGrid from "./ProductsGrid";
 
-export default function NewProducts({ newProducts }) {
+export default function NewProducts({ newProducts, wishedProducts }) {
   return (
     <Center>
       <Title>New Arrivals</Title>
-      <ProductsGrid products={newProducts} />
+      <ProductsGrid products={newProducts} wishedProducts={wishedProducts} />
     </Center>
   );
 }

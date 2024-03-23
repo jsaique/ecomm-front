@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductImages from "@/components/ProductImages";
@@ -8,13 +7,9 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
-import { CartContext } from "@/components/CartContext";
-import { useContext } from "react";
 import FlyingButton from "@/components/FlyingButton";
 
 export default function ProductPage({ product }) {
-  const { addProduct } = useContext(CartContext);
-
   return (
     <>
       <Header />
@@ -31,11 +26,11 @@ export default function ProductPage({ product }) {
                 <Price>${product.price} </Price>
               </div>
               <div>
-                {/* <Button
-                  primary={1}
-                  onClick={() => addProduct(product._id)}
-                ></Button> */}
-                <FlyingButton main _id={product._id} src={product.images?.[0]}>
+                <FlyingButton
+                  main={1}
+                  _id={product._id}
+                  src={product.images?.[0]}
+                >
                   <FaShoppingCart />
                   Add to cart
                 </FlyingButton>

@@ -1,15 +1,47 @@
+/* eslint-disable @next/next/no-img-element */
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import FlyingButton from "./FlyingButton";
+import HeartOutlinedIcon from "./icons/HeartOulinedIcon";
+import { useState } from "react";
+import HeartSolidIcon from "./icons/HeartSolidIcon";
+import axios from "axios";
 
-export default function ProductBox({ _id, title, description, price, images }) {
+export default function ProductBox({
+  _id,
+  title,
+  description,
+  price,
+  images,
+  wished = false,
+  onRemoveFromWishlist = () => {},
+}) {
   const url = "/product/" + _id;
+  const [isWished, setIsWished] = useState(wished);
+
+  const addToWishlist = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const nextValue = !isWished;
+    if (nextValue === false && onRemoveFromWishlist) {
+      onRemoveFromWishlist(_id);
+    }
+    axios
+      .post("/api/wishlist", {
+        product: _id,
+      })
+      .then(() => {});
+    setIsWished(nextValue);
+  };
 
   return (
     <ProductWrapper>
       <WhiteBox href={url}>
         <div>
+          <WishlistButton wished={isWished.toString()} onClick={addToWishlist}>
+            {isWished ? <HeartSolidIcon /> : <HeartOutlinedIcon />}
+          </WishlistButton>
           <img src={images?.[0]} alt="" />
         </div>
       </WhiteBox>
@@ -27,7 +59,13 @@ export default function ProductBox({ _id, title, description, price, images }) {
   );
 }
 
-const ProductWrapper = styled.div``;
+const ProductWrapper = styled.div`
+  button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+`;
 
 const WhiteBox = styled(Link)`
   background-color: #fff;
@@ -38,9 +76,25 @@ const WhiteBox = styled(Link)`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  position: relative;
   img {
     max-width: 100%;
     max-height: 80px;
+  }
+`;
+
+const WishlistButton = styled.button`
+  border: none;
+  width: 40px !important;
+  height: 40px;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  cursor: pointer;
+  svg {
+    width: 16px;
   }
 `;
 

@@ -5,41 +5,49 @@ export const CartContext = createContext({});
 export function CartContextProvider({ children }) {
   const ls = typeof window !== "undefined" ? window.localStorage : null;
   const [cartProducts, setCartProducts] = useState([]);
-
-  // Retrieving cart data from local storage on component mount
-  useEffect(() => {
-    if (ls && ls.getItem("cart")) {
-      setCartProducts(JSON.parse(ls.getItem("cart")));
-    }
-  }, []);
-
-  // Saving the cart data to local storage whenever it changes
+  // Saving the cart number in localStorage
   useEffect(() => {
     if (cartProducts?.length > 0) {
       ls?.setItem("cart", JSON.stringify(cartProducts));
     }
   }, [cartProducts]);
-
+  // Keep track of cart length on reload
+  useEffect(() => {
+    if (ls && ls.getItem("cart")) {
+      setCartProducts(JSON.parse(ls.getItem("cart")));
+    }
+  }, []);
   // Adding the product to the cart
   const addProduct = function (productID) {
     setCartProducts((prev) => [...prev, productID]);
   };
+  //   // Removing all product from the cart
+  //   const removeAllProduct = function (productID) {
+  //     setCartProducts((prev) => {
+  //       const updatedCart = prev.filter((value) => value !== productID);
+  //       ls.setItem("cart", JSON.stringify(updatedCart)); // Update local storage here
+  //       return updatedCart;
+  //     });
+  //   };
 
   // Removing the product from the cart
-  const removeProduct = function (productID) {
+  const removeProduct = function (productId) {
     setCartProducts((prev) => {
-      const updatedCart = prev.filter((value) => value !== productID);
-      ls.setItem("cart", JSON.stringify(updatedCart)); // Update local storage here
-      return updatedCart;
+      const indexToRemove = prev.indexOf(productId);
+      if (indexToRemove !== -1) {
+        const updatedCart = [...prev];
+        updatedCart.splice(indexToRemove, 1); // Remove one instance of the product
+
+        ls?.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
+      return prev;
     });
   };
-
-  // Clearing the cart and local storage
   const clearCart = function () {
     setCartProducts([]);
     ls.clear();
   };
-
   return (
     <CartContext.Provider
       value={{
