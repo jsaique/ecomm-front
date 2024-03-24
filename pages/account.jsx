@@ -12,6 +12,8 @@ import axios from "axios";
 import { ScaleLoader } from "react-spinners";
 import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
+import Tabs from "@/components/Tabs";
+import OrderList from "@/components/OrderList";
 
 export default function AccountPage() {
   const { data: session } = useSession();
@@ -23,8 +25,11 @@ export default function AccountPage() {
   const [zip, setZip] = useState("");
   const [country, setCountry] = useState("");
   const [addressLoaded, setAddressLoaded] = useState(true);
+  const [orderLoaded, setOrderLoaded] = useState(true);
   const [wishlistLoaded, setWishlistLoaded] = useState(true);
   const [wishedProducts, setWishedProducts] = useState([]);
+  const [activeTab, setActiveTab] = useState("Orders");
+  const [orders, setOrders] = useState([]);
 
   const logout = async function () {
     await signOut({
@@ -46,6 +51,7 @@ export default function AccountPage() {
     }
     setAddressLoaded(false);
     setWishlistLoaded(false);
+    setOrderLoaded(false);
     // Fetching the data from the database
     axios.get("/api/address").then((res) => {
       setName(res.data.name);
@@ -60,6 +66,10 @@ export default function AccountPage() {
     axios.get("/api/wishlist").then((res) => {
       setWishedProducts(res.data.map((wp) => wp.product));
       setWishlistLoaded(true);
+    });
+    axios.get("/api/orders").then((res) => {
+      setOrders(res.data);
+      setOrderLoaded(true);
     });
   }, [session]);
 
@@ -77,25 +87,47 @@ export default function AccountPage() {
           <div>
             <RevealWrapper delay={0}>
               <WhiteBox>
-                <h2>Wishlist</h2>
-                {!wishlistLoaded && <Spinner fullWidth={true} />}
-                {wishlistLoaded && (
+                <Tabs
+                  tabs={["Orders", "Wishlist"]}
+                  activeTab={activeTab.toString()}
+                  onChange={setActiveTab}
+                />
+                {activeTab === "Orders" && (
                   <>
-                    <WishedProductGrid>
-                      {wishedProducts.length > 0 &&
-                        wishedProducts.map((wp) => (
-                          <ProductBox
-                            key={wp._id}
-                            {...wp}
-                            wished={true}
-                            onRemoveFromWishlist={removedProductFromWishlist}
-                          />
-                        ))}
-                    </WishedProductGrid>
-                    {wishedProducts.length === 0 && (
+                    {!orderLoaded && <Spinner fullWidth={true} />}
+                    {orderLoaded && (
+                      <div>
+                        {orders.length === 0 && <p>Login to see your orders</p>}
+                        {orders.length > 0 &&
+                          orders.map((o) => <OrderList key={o._id} {...o} />)}
+                      </div>
+                    )}
+                  </>
+                )}
+                {activeTab === "Wishlist" && (
+                  <>
+                    {!wishlistLoaded && <Spinner fullWidth={true} />}
+                    {wishlistLoaded && (
                       <>
-                        {session && <p>Your wishlist is empty</p>}
-                        {!session && <p>Login with Google</p>}
+                        <WishedProductGrid>
+                          {wishedProducts.length > 0 &&
+                            wishedProducts.map((wp) => (
+                              <ProductBox
+                                key={wp._id}
+                                {...wp}
+                                wished={true}
+                                onRemoveFromWishlist={
+                                  removedProductFromWishlist
+                                }
+                              />
+                            ))}
+                        </WishedProductGrid>
+                        {wishedProducts.length === 0 && (
+                          <>
+                            {session && <p>Your wishlist is empty</p>}
+                            {!session && <p>Login with Google</p>}
+                          </>
+                        )}
                       </>
                     )}
                   </>
