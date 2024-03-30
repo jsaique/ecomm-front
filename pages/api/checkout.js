@@ -3,6 +3,7 @@ import { Order } from "@/models/Order";
 import { Product } from "@/models/Product";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
+import { Setting } from "@/models/Setting";
 
 const stripe = require("stripe")(process.env.STRIPE_SK);
 
@@ -52,13 +53,25 @@ export default async function handler(req, res) {
     userEmail: session?.user?.email,
   });
 
+  const shippingFeeSetting = await Setting.findOne({ name: "shippingFee" });
+  const shippingFeeCents = parseInt(shippingFeeSetting.value || "0") * 100;
+
   const stripeSesion = await stripe.checkout.sessions.create({
     line_items,
     mode: "payment",
     customer_email: email,
     success_url: process.env.NEXT_PUBLIC_REDIRECT_URL + "/cart?success=1",
     cancel_url: process.env.NEXT_PUBLIC_REDIRECT_URL + "/cart?canceled=1",
-    metadata: { orderId: orderData._id.toString(), test: "ok" },
+    metadata: { orderId: orderData._id.toString() },
+    shipping_options: [
+      {
+        shipping_rate_data: {
+          display_name: "shipping fee",
+          type: "fixed_amount",
+          fixed_amount: { amount: shippingFeeCents, currency: "USD" },
+        },
+      },
+    ],
   });
 
   res.json({

@@ -27,6 +27,7 @@ export default function CartPage() {
   const [state, setState] = useState("");
   const [zip, setZip] = useState("");
   const [country, setCountry] = useState("");
+  const [shippingFee, setShippingFee] = useState(null);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -46,6 +47,9 @@ export default function CartPage() {
       clearCart();
       setIsSuccess(true);
     }
+    axios.get("/api/settings?name=shippingFee").then((res) => {
+      setShippingFee(res.data.value);
+    });
   }, []);
 
   useEffect(() => {
@@ -160,10 +164,17 @@ export default function CartPage() {
                         </td>
                       </tr>
                     ))}
-                    <tr>
-                      <td></td>
-                      <td></td>
+                    <tr className="subtotal">
+                      <td colSpan={2}>Products</td>
                       <td>&#36;{totalPrice}</td>
+                    </tr>
+                    <tr className="subtotal">
+                      <td colSpan={2}>Shipping</td>
+                      <td>${shippingFee}</td>
+                    </tr>
+                    <tr className="subtotal total">
+                      <td colSpan={2}>Total</td>
+                      <td>${totalPrice + parseInt(shippingFee)}</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -246,6 +257,18 @@ const ColumWrapper = styled.div`
   }
   gap: 40px;
   margin-top: 40px;
+  margin-bottom: 40px;
+  table thead tr th:nth-child(3),
+  table tbody tr td:nth-child(3),
+  table tbody tr.subtotal td:nth-child(2) {
+    text-align: right;
+  }
+  table tr.subtotal td {
+    padding: 10px 0;
+  }
+  tr.total td {
+    font-weight: bold;
+  }
 `;
 
 const Box = styled.div`
