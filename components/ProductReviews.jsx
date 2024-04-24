@@ -110,7 +110,7 @@ const ColsWrapper = styled.div`
   gap: 20px;
   margin: 40px;
 
-  @media screen and (width: 768px) {
+  @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
   }
