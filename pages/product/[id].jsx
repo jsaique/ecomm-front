@@ -8,6 +8,7 @@ import { Product } from "@/models/Product";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import FlyingButton from "@/components/FlyingButton";
+import ProductReviews from "@/components/ProductReviews";
 
 export default function ProductPage({ product }) {
   return (
@@ -38,6 +39,7 @@ export default function ProductPage({ product }) {
             </PriceRow>
           </div>
         </ColWrapper>
+        <ProductReviews product={product} />
       </Center>
     </>
   );
@@ -61,7 +63,7 @@ const ColWrapper = styled.div`
     grid-template-columns: 0.8fr 1.2fr;
   }
   gap: 40px;
-  margin-top: 40px;
+  margin: 40px 0;
 `;
 
 const PriceRow = styled.div`

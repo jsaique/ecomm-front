@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function Input(props) {
-  return <StyledInput {...props} />;
+export default function Textarea(props) {
+  return <StyledTextarea {...props} />;
 }
 
-const StyledInput = styled.input`
+const StyledTextarea = styled.textarea`
   width: 100%;
   padding: 5px;
   margin-bottom: 5px;
