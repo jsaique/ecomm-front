@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
@@ -44,7 +45,7 @@ export default function SearchPage() {
           />
         </InputWrapper>
         {!isLoading && query !== "" && products.length === 0 && (
-          <h2>No product found for "{query}"</h2>
+          <h2>No product found for ({query})</h2>
         )}
         {isLoading && <Spinner fullWidth={true} />}
         {!isLoading && products.length > 0 && (

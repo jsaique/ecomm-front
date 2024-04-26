@@ -1,7 +1,6 @@
 import Button from "@/components/Button";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
-import Title from "@/components/Title";
 import WhiteBox from "@/components/WhiteBox";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styled from "styled-components";
@@ -9,7 +8,6 @@ import { RevealWrapper } from "next-reveal";
 import Input from "@/components/Input";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ScaleLoader } from "react-spinners";
 import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
@@ -220,9 +218,12 @@ export default function AccountPage() {
 
 const ColsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr;
   gap: 40px;
   margin: 40px 0;
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
 `;
 
 const CityContainer = styled.div`
