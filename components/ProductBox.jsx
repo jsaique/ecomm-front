@@ -11,7 +11,6 @@ import axios from "axios";
 export default function ProductBox({
   _id,
   title,
-  description,
   price,
   images,
   wished = false,
