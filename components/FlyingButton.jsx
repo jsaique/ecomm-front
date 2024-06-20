@@ -1,7 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import { primary } from "@/lib/colors";
 import { ButtonStyle } from "./Button";
 import styled from "styled-components";
-import FlyingButtonOriginal from "react-flying-item";
 import { useContext, useEffect, useRef } from "react";
 import { CartContext } from "./CartContext";
 
@@ -36,17 +36,6 @@ export default function FlyingButton(props) {
         white={props.white}
         onClick={() => addProduct(props._id)}
       >
-        {/* <FlyingButtonOriginal
-          {...props}
-          flyingItemStyling={{
-            width: "auto",
-            height: "auto",
-            maxWidth: "80px",
-            maxHeight: "80px",
-          }}
-          targetTop={"5%"}
-          targetLeft={"80%"}
-        /> */}
         <img src={props.src} alt="" ref={imgRef} />
         <button onClick={(e) => sendImageToCart(e, props.src)} {...props} />
       </FlyingButtonWrapper>
