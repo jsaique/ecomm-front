@@ -7,6 +7,7 @@ import clientPromise from "@/lib/mongodb";
 // import EmailProvider from "next-auth/providers/email";
 
 export const authOptions = {
+  secret: process.env.SECRET,
   providers: [
     // OAuth authentication providers...
     // AppleProvider({
